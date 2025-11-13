@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <form action="login.php" method="post" onsubmit="handleSubmit(event)">
+        <div>
+            <label for="num1">Num 1</label>
+            <input type="text" id="num1" name="num1">
+        </div>
+        <div>
+            <label for="num2">Num 2</label>
+            <input type="text" id="num2" name="num2">
+        </div>
+        <button type="submit">=</button>
+        <span id="resultat">?</span>
+    </form>
+    <script src="index.js"></script>
+</body>
+</html>
