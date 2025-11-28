@@ -1,0 +1,46 @@
+les aspects avancées de JS : 
+
+POO
+les modules : export import 
+arrow function  a => a*2 
+{a,b} = {1,2} == a=1 & b =2
+
+array functions :
+
+map - filter - find - reduce? foreach
+
+la programmation fonctionelle
+
+MERN stack
+
+MongoDB
+ExpressJS
+ReactJS
+NodeJS
+
+MEAN stack
+
+MongoDB
+ExpressJS
+Angular
+NodeJS
+
+MEVN stack
+
+MongoDB
+ExpressJS
+Vuejs
+NodeJS
+
+LARAVEL
+ReactJS
+
+
+const tab2 = tab1.map( e => e.name); // tab1(n) tab2(n)
+const tab2 = tab1.filter( e => e.age>18); // tab1(n) tab2(<n)
+const element = tab1.find( e => e.name=="john");
+
+
+
+
+
