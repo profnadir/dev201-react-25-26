@@ -1,0 +1,16 @@
+{
+  "name": "dev201",
+  "version": "1.0.0",
+  "description": "demo",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev" : "vite"
+  },
+  "author": "nadir",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.13.2",
+    "vite": "^7.2.6"
+  }
+}
