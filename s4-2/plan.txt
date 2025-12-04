@@ -1,0 +1,44 @@
+mkdir react19-demo
+cd react19-demo
+npm init -y
+
+npm install react react-dom
+
+npm install --save-dev vite
+
+react19-demo/
+├─ index.html
+├─ main.jsx
+├─ package.json
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>React 19 Demo</title>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/main.jsx"></script>
+</body>
+</html>
+
+import React from "react";
+import { createRoot } from "react-dom/client";
+
+const App = () => {
+  return (
+    <div>
+      <h1>Hello React 19 avec npm!</h1>
+    </div>
+  );
+};
+
+const root = createRoot(document.getElementById("root"));
+root.render(<App />);
+
+"scripts": {
+  "dev": "vite"
+}
+
+npm run dev

@@ -1,0 +1,23 @@
+<html>
+
+<head>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script type="module">
+        import React from "https://esm.sh/react@19?dev";
+        import ReactDOMClient from "https://esm.sh/react-dom@19/client?dev";
+
+        //const App = () => <p>Hello React 19!</p>;
+        const App = () => React.createElement('p', null, 'Hello React 19!');
+
+        const root = ReactDOMClient.createRoot(document.getElementById("app"));
+        //root.render(<App />);
+        root.render(React.createElement(App))
+    </script>
+</body>
+
+</html>
