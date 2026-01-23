@@ -14,28 +14,46 @@ function App() {
   const [nom, setNom] = useState('')
   const [prenom, setPrenom] = useState('')
   const [note, setNote] = useState('')
+  const [isEdit, setIsEdit] = useState(false)
+  const [idEdit, setIdEdit] = useState(null)
 
-  const handleSubmit = function(event){
+  const handleSubmit = function (event) {
 
     event.preventDefault();
 
-    const newStagiaire = {
-      id:stagiaireList.length+1,
-      nom,
-      prenom,
-      note
-    }
+    if (isEdit) {
+      setStagiaireList([...stagiaireList.map(s => s.id == idEdit ? {...s, nom, prenom, note} : s)])
+      setIsEdit(false);
+      setIdEdit(null);
+    } 
+    else 
+      {
+      const newStagiaire = {
+        id: stagiaireList.length + 1,
+        nom,
+        prenom,
+        note
+      }
 
-    setStagiaireList([...stagiaireList,newStagiaire])
+      setStagiaireList([...stagiaireList, newStagiaire])
+    }
 
     setNom("");
     setPrenom("");
     setNote("");
-    
+
   }
 
-  const handleDelete = function(id) {
+  const handleDelete = function (id) {
     setStagiaireList([...stagiaireList.filter(s => s.id != id)])
+  }
+
+  const handleEdit = (stagiaireToEdit) => {
+    setNom(stagiaireToEdit.nom);
+    setPrenom(stagiaireToEdit.prenom);
+    setNote(stagiaireToEdit.note);
+    setIdEdit(stagiaireToEdit.id);
+    setIsEdit(true);
   }
 
   return (
@@ -44,21 +62,22 @@ function App() {
         <div>
           <label>Nom</label>
           <input type="text" value={nom}
-            onChange={e => setNom(e.target.value)}/>
-         {/*  {nom.length < 4 ? "nom must have 4 chars" : ""} */}
+            onChange={e => setNom(e.target.value)} />
+          {/*  {nom.length < 4 ? "nom must have 4 chars" : ""} */}
         </div>
         <div>
           <label>Prenom</label>
           <input type="text" value={prenom}
-          onChange={e => setPrenom(e.target.value)}/>
+            onChange={e => setPrenom(e.target.value)} />
         </div>
         <div>
           <label>Note</label>
           <input type="text" value={note}
-          onChange={e => setNote(e.target.value)}/>
+            onChange={e => setNote(e.target.value)} />
         </div>
-        <button>Ajouter</button>
+        <button>{isEdit ? "Modifier" : "Ajouter"}</button>
       </form>
+      <hr />
       <table border={1}>
         <thead>
           <tr>
@@ -78,8 +97,10 @@ function App() {
                 <td>{s.prenom}</td>
                 <td>{s.note}</td>
                 <td>
-                  <button style={{ backgroundColor: "orange" }}>update</button>
-                  <button 
+                  <button
+                    style={{ backgroundColor: "orange" }}
+                    onClick={() => handleEdit(s)}>update</button>
+                  <button
                     style={{ background: "red" }}
                     onClick={() => handleDelete(s.id)}  >delete</button>
                 </td>
