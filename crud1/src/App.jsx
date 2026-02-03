@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import './App.css'
+import Stagiaires from './components/Stagiaires'
+import StagiaireForm from './components/StagiaireForm'
 
 function App() {
 
@@ -11,104 +13,37 @@ function App() {
 
   const [stagiaireList, setStagiaireList] = useState(stagiaires)
 
-  const [nom, setNom] = useState('')
-  const [prenom, setPrenom] = useState('')
-  const [note, setNote] = useState('')
-  const [isEdit, setIsEdit] = useState(false)
-  const [idEdit, setIdEdit] = useState(null)
+  const [stagiaireToEdit,setStagiaireToEdit] = useState(null);
 
-  const handleSubmit = function (event) {
+  
 
-    event.preventDefault();
-
-    if (isEdit) {
-      setStagiaireList([...stagiaireList.map(s => s.id == idEdit ? {...s, nom, prenom, note} : s)])
-      setIsEdit(false);
-      setIdEdit(null);
-    } 
-    else 
-      {
-      const newStagiaire = {
-        id: stagiaireList.length + 1,
-        nom,
-        prenom,
-        note
-      }
-
-      setStagiaireList([...stagiaireList, newStagiaire])
+  const handleSubmitApp = (stagiaire) => {
+    
+    if(stagiaire.id){
+      setStagiaireList([...stagiaireList.map(s => s.id==stagiaire.id ? {...stagiaire} : s)])
+      setStagiaireToEdit(null)
+    }else{
+      setStagiaireList([...stagiaireList, {...stagiaire, id:stagiaireList.length+1}])
     }
-
-    setNom("");
-    setPrenom("");
-    setNote("");
-
+    
   }
 
-  const handleDelete = function (id) {
+
+  const handleDeleteApp = id => {
     setStagiaireList([...stagiaireList.filter(s => s.id != id)])
   }
 
-  const handleEdit = (stagiaireToEdit) => {
-    setNom(stagiaireToEdit.nom);
-    setPrenom(stagiaireToEdit.prenom);
-    setNote(stagiaireToEdit.note);
-    setIdEdit(stagiaireToEdit.id);
-    setIsEdit(true);
+  const handleEditApp = stagaire => {
+    setStagiaireToEdit(stagaire)
   }
+
+
 
   return (
     <>
-      <form onSubmit={e => handleSubmit(e)}>
-        <div>
-          <label>Nom</label>
-          <input type="text" value={nom}
-            onChange={e => setNom(e.target.value)} />
-          {/*  {nom.length < 4 ? "nom must have 4 chars" : ""} */}
-        </div>
-        <div>
-          <label>Prenom</label>
-          <input type="text" value={prenom}
-            onChange={e => setPrenom(e.target.value)} />
-        </div>
-        <div>
-          <label>Note</label>
-          <input type="text" value={note}
-            onChange={e => setNote(e.target.value)} />
-        </div>
-        <button>{isEdit ? "Modifier" : "Ajouter"}</button>
-      </form>
+      <StagiaireForm handleSubmitApp={handleSubmitApp} stagiaireToEdit={stagiaireToEdit}/>
       <hr />
-      <table border={1}>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>NOM</th>
-            <th>Prénom</th>
-            <th>Note</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            stagiaireList.map(s =>
-              <tr key={s.id}>
-                <td>{s.id}</td>
-                <td>{s.nom}</td>
-                <td>{s.prenom}</td>
-                <td>{s.note}</td>
-                <td>
-                  <button
-                    style={{ backgroundColor: "orange" }}
-                    onClick={() => handleEdit(s)}>update</button>
-                  <button
-                    style={{ background: "red" }}
-                    onClick={() => handleDelete(s.id)}  >delete</button>
-                </td>
-              </tr>
-            )
-          }
-        </tbody>
-      </table>
+      <Stagiaires stagiaireList={stagiaireList} handleDeleteApp={handleDeleteApp} handleEditApp={handleEditApp}/>
     </>
   )
 }
